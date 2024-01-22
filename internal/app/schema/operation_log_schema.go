@@ -28,6 +28,8 @@ type AdminOperationLogStoreForm struct {
 	Method string
 	Path   string
 	Ip     string
-	UserId int
+	UserId int64
 	Input  string
+	Status int
+	Output string
 }

@@ -2,12 +2,32 @@ package service
 
 import (
 	"github.com/zhiniuer/goadmin/gormx"
+	"github.com/zhiniuer/goadmin/internal/app"
 	"github.com/zhiniuer/goadmin/internal/app/driver"
 	"github.com/zhiniuer/goadmin/internal/app/models"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
 )
 
 type AdminOperationLogService struct {
+}
+
+// Save 保存访问日志
+func (m *AdminOperationLogService) Save(ctx *app.Context, form *schema.AdminOperationLogStoreForm) (err error) {
+	db := driver.GDB
+	storeData := &models.AdminOperationLog{
+		Method: form.Method,
+		Path:   form.Path,
+		Ip:     form.Ip,
+		UserId: form.UserId,
+		Input:  form.Input,
+		Status: form.Status,
+		Output: form.Output,
+	}
+	err = db.Create(storeData).Error
+	if err != nil {
+		return
+	}
+	return nil
 }
 
 // List 访问日志

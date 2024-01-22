@@ -8,8 +8,9 @@ import (
 	"gorm.io/gorm"
 )
 
-// New configs/rbac_model.conf
-func New(db *gorm.DB, rbacFile string) (a *Admin, err error) {
+// NewAdmin
+// rbacFile rbac_model.conf
+func NewAdmin(db *gorm.DB, rbacFile string) (a *Admin, err error) {
 	//err = utils.InitTrans("zh")
 	driver.GDB = db
 	rbacFile = "configs/rbac_model.conf"
@@ -20,15 +21,18 @@ func New(db *gorm.DB, rbacFile string) (a *Admin, err error) {
 	if err != nil {
 		return
 	}
-	return &Admin{}, nil
+	return &Admin{
+		Middleware: &Middleware{},
+	}, nil
 }
 
 type Admin struct {
+	Middleware *Middleware
 }
 
 // NewRouteAuth 没有权限控制的路由
 func (*Admin) NewRouteAuth(group *gin.RouterGroup) {
-	routes.NewRouteRbac(group)
+	routes.NewRouteAuth(group)
 }
 
 // NewRouteRbac RBAC权限控制的路由
@@ -36,6 +40,15 @@ func (*Admin) NewRouteRbac(group *gin.RouterGroup) {
 	routes.NewRouteRbac(group)
 }
 
-func RbacMiddleware() gin.HandlerFunc {
+type Middleware struct {
+}
+
+// Rbac 中间件
+func (*Middleware) Rbac() gin.HandlerFunc {
 	return middleware.NewRbac()
+}
+
+// Access 访问日志中间件
+func (*Middleware) Access() gin.HandlerFunc {
+	return middleware.NewAccess()
 }
