@@ -3,8 +3,8 @@ package service
 import (
 	"github.com/zhiniuer/goadmin/internal/app/driver"
 	"github.com/zhiniuer/goadmin/internal/app/errors"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/rbac"
 	"github.com/zhiniuer/goutils/gormx"
 	"github.com/zhiniuer/goutils/str"
@@ -18,7 +18,7 @@ type AdminPermissionsService struct {
 }
 
 // List 获取权限列表
-func (m *AdminPermissionsService) List(form *schema.AdminRoleListForm, page, pageSize int) (items []schema.AdminPermissionsListResult, count int64, err error) {
+func (m *AdminPermissionsService) List(form *forms.AdminRoleListForm, page, pageSize int) (items []forms.AdminPermissionsListResult, count int64, err error) {
 	menuTableName := models.AdminMenu{}.TableName()
 	db := driver.GDB.Table(m.Model.TableName() + " as p").
 		Joins("left join " + menuTableName + " as m on m.id = p.group").
@@ -38,7 +38,7 @@ func (m *AdminPermissionsService) List(form *schema.AdminRoleListForm, page, pag
 }
 
 // Options 获取权限选项接口
-func (m *AdminPermissionsService) Options() (items []schema.AdminPermissionOptionsResult, err error) {
+func (m *AdminPermissionsService) Options() (items []forms.AdminPermissionOptionsResult, err error) {
 	menuTableName := models.AdminMenu{}.TableName()
 	result := driver.GDB.Table(m.Model.TableName() + " as p").
 		Joins("left join " + menuTableName + " as m on m.id = p.group").
@@ -50,7 +50,7 @@ func (m *AdminPermissionsService) Options() (items []schema.AdminPermissionOptio
 	return items, nil
 }
 
-func (m *AdminPermissionsService) Store(form *schema.AdminPermissionStoreForm) (err error) {
+func (m *AdminPermissionsService) Store(form *forms.AdminPermissionStoreForm) (err error) {
 	db := driver.GDB
 	oldItem := models.AdminPermissions{}
 	storeData := &models.AdminPermissions{
@@ -108,7 +108,7 @@ func (m *AdminPermissionsService) Store(form *schema.AdminPermissionStoreForm) (
 }
 
 // Info 用户编辑的权限接口
-func (m *AdminPermissionsService) Info(form *schema.AdminPermissionsInfoForm) (item schema.AdminPermissionsInfoResult, err error) {
+func (m *AdminPermissionsService) Info(form *forms.AdminPermissionsInfoForm) (item forms.AdminPermissionsInfoResult, err error) {
 	result := driver.GDB.Model(&models.AdminPermissions{}).Where("id", form.Id).First(&item)
 	// 检查 ErrRecordNotFound 错误
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
@@ -119,9 +119,9 @@ func (m *AdminPermissionsService) Info(form *schema.AdminPermissionsInfoForm) (i
 }
 
 // Detail 获取权限详情
-func (m *AdminPermissionsService) Detail(form *schema.AdminPermissionsInfoForm) (res schema.AdminPermissionDetailResult, err error) {
+func (m *AdminPermissionsService) Detail(form *forms.AdminPermissionsInfoForm) (res forms.AdminPermissionDetailResult, err error) {
 	db := driver.GDB
-	permission := schema.AdminPermissionDetail{}
+	permission := forms.AdminPermissionDetail{}
 	result := db.Model(&models.AdminPermissions{}).Where("id", form.Id).First(&permission)
 	// 检查 ErrRecordNotFound 错误
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
@@ -152,7 +152,7 @@ func (m *AdminPermissionsService) Detail(form *schema.AdminPermissionsInfoForm) 
 }
 
 // Delete 删除权限
-func (m *AdminPermissionsService) Delete(form *schema.AdminPermissionsDeleteForm) (err error) {
+func (m *AdminPermissionsService) Delete(form *forms.AdminPermissionsDeleteForm) (err error) {
 	p := models.AdminPermissions{}
 	err = driver.GDB.Transaction(func(tx *gorm.DB) (err error) {
 		err = tx.Model(&models.AdminPermissions{}).Where("id", form.Id).First(&p).Error

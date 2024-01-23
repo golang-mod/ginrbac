@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/service"
 	"github.com/zhiniuer/goutils/response"
 	"github.com/zhiniuer/goutils/validator_util"
@@ -22,7 +22,7 @@ func (c *MenuController) List(ctx *gin.Context) {
 }
 
 func (c *MenuController) Store(ctx *gin.Context) {
-	form := new(schema.AdminMenuStoreForm)
+	form := new(forms.AdminMenuStoreForm)
 	if err := ctx.Bind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
@@ -36,7 +36,7 @@ func (c *MenuController) Store(ctx *gin.Context) {
 }
 
 func (c *MenuController) Delete(ctx *gin.Context) {
-	form := new(schema.AdminMenuDeleteForm)
+	form := new(forms.AdminMenuDeleteForm)
 	if err := ctx.ShouldBind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(err.Error(), 10001))
 		return
@@ -50,7 +50,7 @@ func (c *MenuController) Delete(ctx *gin.Context) {
 }
 
 func (c *MenuController) Info(ctx *gin.Context) {
-	form := new(schema.AdminMenuDetailForm)
+	form := new(forms.AdminMenuDetailForm)
 	if err := ctx.Bind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return

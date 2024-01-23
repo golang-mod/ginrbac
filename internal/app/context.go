@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	AdminId     = "admin.id"
+	AdminUserId = "admin.user_id"
 	AdminInput  = "admin.input"
 	AdminOutput = "admin.output"
 	AdminIp     = "admin.ip"
@@ -43,7 +43,7 @@ func NewContext(ctx *gin.Context) *Context {
 	var ac Context
 	page := response.Page(ctx.Request)
 	pageSize := response.PageSize(ctx.Request)
-	adminUserId := ctx.GetInt64(AdminId)
+	adminUserId := ctx.GetInt64(AdminUserId)
 
 	ac.Request = ctx.Request
 	// 用户相关数据

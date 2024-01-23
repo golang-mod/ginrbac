@@ -5,8 +5,8 @@ import (
 	"github.com/zhiniuer/goadmin/internal/app/dao"
 	"github.com/zhiniuer/goadmin/internal/app/driver"
 	"github.com/zhiniuer/goadmin/internal/app/errors"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goutils/gormx"
 	"github.com/zhiniuer/goutils/tree"
 	"gorm.io/gorm"
@@ -17,7 +17,7 @@ type AdminUserService struct {
 }
 
 // List 获取用户列表
-func (m *AdminUserService) List(page, pageSize int) (items []schema.AdminUserListResult, count int64, err error) {
+func (m *AdminUserService) List(page, pageSize int) (items []forms.AdminUserListResult, count int64, err error) {
 	db := driver.GDB.Model(models.AdminUsers{}).Find(&items)
 	roleUsersTableName := models.AdminRoleUsers{}.TableName()
 	roleTableName := models.AdminRoles{}.TableName()
@@ -44,7 +44,7 @@ func (AdminUserService) Menu(userId int) (interface{}, error) {
 	if len(menuIds) == 0 {
 		return menuIds, nil
 	}
-	var items schema.AdminMenuListResults
+	var items forms.AdminMenuListResults
 	_ = driver.GDB.Model(&models.AdminMenu{}).Where("id IN ?", menuIds).Order("`order` desc").Find(&items)
 	if len(items) == 0 {
 		return items, nil
@@ -54,7 +54,7 @@ func (AdminUserService) Menu(userId int) (interface{}, error) {
 }
 
 // AuthStore 用户授权
-func (m *AdminUserService) AuthStore(form *schema.AdminUserAuthStoreForm) (err error) {
+func (m *AdminUserService) AuthStore(form *forms.AdminUserAuthStoreForm) (err error) {
 	err = driver.GDB.Transaction(func(tx *gorm.DB) (err error) {
 		userId, _ := strconv.Atoi(form.Id)
 		udao := &dao.UserDao{}
@@ -71,7 +71,7 @@ func (m *AdminUserService) AuthStore(form *schema.AdminUserAuthStoreForm) (err e
 }
 
 // AuthInfo 授权编辑数据回显
-func (m *AdminUserService) AuthInfo(form *schema.AdminUserAuthInfoForm) (res schema.AdminUserAuthInfoResult, err error) {
+func (m *AdminUserService) AuthInfo(form *forms.AdminUserAuthInfoForm) (res forms.AdminUserAuthInfoResult, err error) {
 	db := driver.GDB
 	var info models.AdminUsers
 	err = db.Model(&models.AdminUsers{}).Where("id", form.Id).Select([]string{"id", "name", "username"}).First(&info).Error
@@ -106,7 +106,7 @@ func (m *AdminUserService) Check(username string) (user models.AdminUsers, err e
 }
 
 // Options 后台用户参数列表
-func (m *AdminUserService) Options() (items []schema.AdminUserOptionResult, err error) {
+func (m *AdminUserService) Options() (items []forms.AdminUserOptionResult, err error) {
 	result := driver.GDB.Model(models.AdminUsers{}).Order("id DESC").Find(&items)
 	if result.Error != nil {
 		return items, result.Error

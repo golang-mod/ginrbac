@@ -23,6 +23,7 @@ var (
 func NewRouteAuth(rg *gin.RouterGroup) {
 	//rg.POST("auth/logout", adminUser.Logout)
 	rg.GET("auth/user/menu", adminUser.Menu)
+	rg.GET("status", adminUser.Status)
 	rg.GET("auth/user/info", adminUser.UserInfo)
 	//rg.POST("auth/user/password", adminUser.UserPassword)
 }

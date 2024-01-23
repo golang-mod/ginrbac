@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/service"
 	"github.com/zhiniuer/goutils/response"
 	"github.com/zhiniuer/goutils/validator_util"
@@ -13,7 +13,7 @@ type RoleController struct {
 }
 
 func (c *RoleController) List(ctx *gin.Context) {
-	form := new(schema.AdminRoleListForm)
+	form := new(forms.AdminRoleListForm)
 	if err := ctx.Bind(form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
@@ -39,7 +39,7 @@ func (c *RoleController) Options(ctx *gin.Context) {
 }
 
 func (c *RoleController) Store(ctx *gin.Context) {
-	form := new(schema.AdminRoleStoreForm)
+	form := new(forms.AdminRoleStoreForm)
 	if err := ctx.ShouldBind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
@@ -53,7 +53,7 @@ func (c *RoleController) Store(ctx *gin.Context) {
 }
 
 func (c *RoleController) Info(ctx *gin.Context) {
-	form := new(schema.AdminRoleInfoForm)
+	form := new(forms.AdminRoleInfoForm)
 	if err := ctx.Bind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
@@ -67,7 +67,7 @@ func (c *RoleController) Info(ctx *gin.Context) {
 }
 
 func (c *RoleController) Detail(ctx *gin.Context) {
-	form := new(schema.AdminRoleInfoForm)
+	form := new(forms.AdminRoleInfoForm)
 	if err := ctx.Bind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
@@ -81,7 +81,7 @@ func (c *RoleController) Detail(ctx *gin.Context) {
 }
 
 func (c *RoleController) Delete(ctx *gin.Context) {
-	form := new(schema.AdminRoleDeleteForm)
+	form := new(forms.AdminRoleDeleteForm)
 	if err := ctx.ShouldBind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return

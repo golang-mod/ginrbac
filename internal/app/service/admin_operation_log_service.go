@@ -1,10 +1,9 @@
 package service
 
 import (
-	"github.com/zhiniuer/goadmin/internal/app"
 	"github.com/zhiniuer/goadmin/internal/app/driver"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goutils/gormx"
 )
 
@@ -12,7 +11,7 @@ type AdminOperationLogService struct {
 }
 
 // Save 保存访问日志
-func (m *AdminOperationLogService) Save(ctx *app.Context, form *schema.AdminOperationLogStoreForm) (err error) {
+func (m *AdminOperationLogService) Save(form *forms.AdminOperationLogStoreForm) (err error) {
 	db := driver.GDB
 	storeData := &models.AdminOperationLog{
 		Method: form.Method,
@@ -35,7 +34,7 @@ func (m *AdminOperationLogService) Save(ctx *app.Context, form *schema.AdminOper
 // items 日志数组
 // count 日志总条数
 // err   error
-func (m *AdminOperationLogService) List(form *schema.AdminOperationLogListFrom, page, pageSize int) (items []schema.AdminOperationLogResult, count int64, err error) {
+func (m *AdminOperationLogService) List(form *forms.AdminOperationLogListFrom, page, pageSize int) (items []forms.AdminOperationLogResult, count int64, err error) {
 	userTableName := models.AdminUsers{}.TableName()
 	logTableName := models.AdminOperationLog{}.TableName()
 	db := driver.GDB.Table(logTableName + " as l").

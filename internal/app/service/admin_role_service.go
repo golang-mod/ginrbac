@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/zhiniuer/goadmin/internal/app/driver"
 	"github.com/zhiniuer/goadmin/internal/app/errors"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/rbac"
 	"github.com/zhiniuer/goutils/gormx"
 	"gorm.io/gorm"
@@ -16,7 +16,7 @@ type AdminRoleService struct {
 }
 
 // List 获取角色列表
-func (m *AdminRoleService) List(form *schema.AdminRoleListForm, page, pageSize int) (roles []schema.AdminRoleListResult, count int64, err error) {
+func (m *AdminRoleService) List(form *forms.AdminRoleListForm, page, pageSize int) (roles []forms.AdminRoleListResult, count int64, err error) {
 	db := driver.GDB.Table(models.AdminRoles{}.TableName()).Select([]string{"slug", "name", "id", "created_at", "updated_at"})
 	if form.Slug != "" {
 		db.Where("slug LIKE ?", "%"+form.Slug+"%")
@@ -49,7 +49,7 @@ func (m *AdminRoleService) List(form *schema.AdminRoleListForm, page, pageSize i
 }
 
 // Options 获取角色选项接口
-func (m *AdminRoleService) Options() (roles []schema.AdminRoleOptionsResult, err error) {
+func (m *AdminRoleService) Options() (roles []forms.AdminRoleOptionsResult, err error) {
 	result := driver.GDB.Model(&models.AdminRoles{}).Find(&roles)
 	if result.Error != nil {
 		return nil, result.Error
@@ -58,7 +58,7 @@ func (m *AdminRoleService) Options() (roles []schema.AdminRoleOptionsResult, err
 }
 
 // Store 保存角色
-func (m *AdminRoleService) Store(form *schema.AdminRoleStoreForm) (err error) {
+func (m *AdminRoleService) Store(form *forms.AdminRoleStoreForm) (err error) {
 	db := driver.GDB
 	oldItem := &models.AdminRoles{}
 	fmt.Println(form)
@@ -154,7 +154,7 @@ func (m *AdminRoleService) Store(form *schema.AdminRoleStoreForm) (err error) {
 }
 
 // Delete 删除角色
-func (m *AdminRoleService) Delete(form *schema.AdminRoleDeleteForm) (err error) {
+func (m *AdminRoleService) Delete(form *forms.AdminRoleDeleteForm) (err error) {
 	role := models.AdminRoles{}
 	err = driver.GDB.Transaction(func(tx *gorm.DB) (err error) {
 		result := tx.Model(&models.AdminRoles{}).Select("id").Where("id", form.Id).First(&role)
@@ -195,7 +195,7 @@ func (m *AdminRoleService) Delete(form *schema.AdminRoleDeleteForm) (err error) 
 }
 
 // Info 编辑角色的基础信息接口
-func (m *AdminRoleService) Info(form *schema.AdminRoleInfoForm) (res schema.AdminRoleInfoResult, err error) {
+func (m *AdminRoleService) Info(form *forms.AdminRoleInfoForm) (res forms.AdminRoleInfoResult, err error) {
 	db := driver.GDB
 	var role models.AdminRoles
 	result := db.Model(&models.AdminRoles{}).Where("id", form.Id).First(&role)
@@ -219,9 +219,9 @@ func (m *AdminRoleService) Info(form *schema.AdminRoleInfoForm) (res schema.Admi
 }
 
 // Detail 获取角色详情
-func (m *AdminRoleService) Detail(form *schema.AdminRoleInfoForm) (res schema.AdminRoleDetailResult, err error) {
+func (m *AdminRoleService) Detail(form *forms.AdminRoleInfoForm) (res forms.AdminRoleDetailResult, err error) {
 	db := driver.GDB
-	role := schema.AdminRoleDetail{}
+	role := forms.AdminRoleDetail{}
 	result := db.Model(&models.AdminRoles{}).Where("id", form.Id).First(&role)
 	// 检查 ErrRecordNotFound 错误
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {

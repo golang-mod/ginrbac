@@ -3,8 +3,8 @@ package service
 import (
 	"errors"
 	"github.com/zhiniuer/goadmin/internal/app/driver"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goutils/str"
 	"github.com/zhiniuer/goutils/tree"
 	"gorm.io/gorm"
@@ -14,7 +14,7 @@ type AdminMenuService struct {
 }
 
 // Store 保存菜单
-func (m *AdminMenuService) Store(form *schema.AdminMenuStoreForm) (err error) {
+func (m *AdminMenuService) Store(form *forms.AdminMenuStoreForm) (err error) {
 	db := driver.GDB
 	oldItem := &models.AdminMenu{}
 	storeData := map[string]interface{}{
@@ -65,7 +65,7 @@ func (m *AdminMenuService) Store(form *schema.AdminMenuStoreForm) (err error) {
 
 // List 菜单列表
 func (m *AdminMenuService) List() (interface{}, error) {
-	var items schema.AdminMenuListResults
+	var items forms.AdminMenuListResults
 	db := driver.GDB.Model(&models.AdminMenu{})
 	db.Order("`order` desc, `id` asc")
 	db.Find(&items)
@@ -75,7 +75,7 @@ func (m *AdminMenuService) List() (interface{}, error) {
 
 // PermissionOptions 菜单列表
 func (m *AdminMenuService) PermissionOptions() (interface{}, error) {
-	var items schema.AdminMenuOptionsResults
+	var items forms.AdminMenuOptionsResults
 	db := driver.GDB.Table(models.AdminMenu{}.TableName())
 	db.Order("`order` desc")
 
@@ -89,7 +89,7 @@ func (m *AdminMenuService) PermissionOptions() (interface{}, error) {
 }
 
 // Delete 删除菜单
-func (m *AdminMenuService) Delete(form *schema.AdminMenuDeleteForm) (err error) {
+func (m *AdminMenuService) Delete(form *forms.AdminMenuDeleteForm) (err error) {
 	err = driver.GDB.Transaction(func(tx *gorm.DB) (err error) {
 		var count int64
 		tx.Model(&models.AdminMenu{}).Where("parent_id", form.Id).Count(&count)
@@ -133,7 +133,7 @@ func (m *AdminMenuService) Delete(form *schema.AdminMenuDeleteForm) (err error) 
 }
 
 // Info 用户编辑的基础信息接口
-func (m *AdminMenuService) Info(form *schema.AdminMenuDetailForm) (item schema.AdminMenuResult, err error) {
+func (m *AdminMenuService) Info(form *forms.AdminMenuDetailForm) (item forms.AdminMenuResult, err error) {
 	result := driver.GDB.Model(&models.AdminMenu{}).Where("id", form.Id).First(&item)
 	// 检查 ErrRecordNotFound 错误
 	if result.Error != nil {

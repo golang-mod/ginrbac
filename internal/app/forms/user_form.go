@@ -1,4 +1,4 @@
-package schema
+package forms
 
 import "github.com/zhiniuer/goutils/gormx/datatypes"
 

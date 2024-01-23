@@ -4,14 +4,44 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhiniuer/goadmin/internal/app"
 	"github.com/zhiniuer/goadmin/internal/app/errors"
-	"github.com/zhiniuer/goadmin/internal/app/schema"
+	"github.com/zhiniuer/goadmin/internal/app/forms"
 	"github.com/zhiniuer/goadmin/internal/app/service"
+	"github.com/zhiniuer/goutils/hardware"
+	"github.com/zhiniuer/goutils/ip"
 	"github.com/zhiniuer/goutils/response"
+	"github.com/zhiniuer/goutils/time_util"
 	"github.com/zhiniuer/goutils/validator_util"
+	"math"
 	"net/http"
+	"runtime"
+	"time"
 )
 
 type AdminUserController struct {
+}
+
+// Status 系统检测
+func (ctl AdminUserController) Status(ctx *gin.Context) {
+	data := map[string]interface{}{
+		"go_version": runtime.Version(),
+		"timezone":   time.Local.String(),
+		"time":       time_util.GetTimeDate(time.DateTime),
+		"mode":       gin.Mode(),
+		"ip":         ctx.Request.RemoteAddr,
+		"ip2":        ip.GetRealIp(ctx.Request),
+	}
+	if ctx.Query("monitor") == "monitor" {
+		h := hardware.Hardware()
+		// 读取超全局变量即可
+		var cpuPercent = int64(math.Floor(h.CpuPercent))
+		data["cpu_percent"] = cpuPercent
+		data["cpu_num"] = h.CpuNum
+		data["mem_total"] = h.MemTotal
+		data["mem_available"] = h.MemAvailable
+		data["mem_free"] = h.MemFree
+		data["mem_used"] = h.MemUsed
+	}
+	ctx.JSON(http.StatusOK, response.Ok(data, "获取成功", 10000))
 }
 
 func (ctl AdminUserController) List(ctx *gin.Context) {
@@ -33,7 +63,7 @@ func (ctl AdminUserController) Options(ctx *gin.Context) {
 }
 
 func (ctl AdminUserController) AuthInfo(ctx *gin.Context) {
-	form := new(schema.AdminUserAuthInfoForm)
+	form := new(forms.AdminUserAuthInfoForm)
 	if err := ctx.ShouldBind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
@@ -47,7 +77,7 @@ func (ctl AdminUserController) AuthInfo(ctx *gin.Context) {
 }
 
 func (ctl AdminUserController) AuthStore(ctx *gin.Context) {
-	form := new(schema.AdminUserAuthStoreForm)
+	form := new(forms.AdminUserAuthStoreForm)
 	if err := ctx.ShouldBind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
