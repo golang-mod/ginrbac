@@ -11,5 +11,5 @@ type AdminRoleMenu struct {
 }
 
 func (AdminRoleMenu) TableName() string {
-	return "role_menu"
+	return "admin_role_menu"
 }

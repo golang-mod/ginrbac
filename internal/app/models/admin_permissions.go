@@ -15,5 +15,5 @@ type AdminPermissions struct {
 }
 
 func (AdminPermissions) TableName() string {
-	return "permissions"
+	return "admin_permissions"
 }

@@ -8,7 +8,10 @@ import (
 )
 
 const (
-	AdminId = "admin.id"
+	AdminId     = "admin.id"
+	AdminInput  = "admin.input"
+	AdminOutput = "admin.output"
+	AdminIp     = "admin.ip"
 )
 
 type Context struct {

@@ -15,5 +15,5 @@ type AdminAccessTokens struct {
 }
 
 func (AdminAccessTokens) TableName() string {
-	return "access_tokens"
+	return "admin_access_tokens"
 }

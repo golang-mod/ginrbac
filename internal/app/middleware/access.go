@@ -7,20 +7,16 @@ import (
 	"github.com/zhiniuer/goadmin/internal/app/service"
 )
 
-const (
-	requestInput  = "request.input"
-	requestOutput = "request.output"
-	requestIp     = "request.ip"
-)
+const ()
 
 // NewAccess 记录日志
 func NewAccess() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		input := c.GetString(requestInput)
+		input := c.GetString(app.AdminInput)
 		// 处理请求
 		c.Next()
-		output := c.GetString(requestOutput)
-		ip := c.GetString(requestIp)
+		output := c.GetString(app.AdminOutput)
+		ip := c.GetString(app.AdminIp)
 		kc := app.NewContext(c)
 		if kc.User.AdminId != 0 {
 			// 记录访问日志

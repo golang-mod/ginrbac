@@ -20,5 +20,5 @@ type AdminMenu struct {
 }
 
 func (AdminMenu) TableName() string {
-	return "menu"
+	return "admin_menu"
 }
