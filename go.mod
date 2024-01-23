@@ -7,7 +7,7 @@ require (
 	github.com/casbin/gorm-adapter/v3 v3.20.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/pkg/errors v0.9.1
-	github.com/zhiniuer/goutils v0.1.3
+	github.com/zhiniuer/goutils v0.1.4
 	golang.org/x/crypto v0.18.0
 	gorm.io/gorm v1.25.5
 )

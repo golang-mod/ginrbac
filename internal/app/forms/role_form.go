@@ -1,7 +1,7 @@
 package forms
 
 import (
-	"github.com/zhiniuer/goutils/gormx/datatypes"
+	"github.com/zhiniuer/goutils/datatypes"
 )
 
 // AdminRoleListForm 角色列表请求参数

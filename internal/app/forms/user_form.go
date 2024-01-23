@@ -1,6 +1,6 @@
 package forms
 
-import "github.com/zhiniuer/goutils/gormx/datatypes"
+import "github.com/zhiniuer/goutils/datatypes"
 
 type AdminUserMenuForm struct {
 	UserId int `form:"user_id" binding:"required"`
