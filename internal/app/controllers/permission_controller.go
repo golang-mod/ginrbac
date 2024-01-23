@@ -6,6 +6,7 @@ import (
 	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/app/service"
 	"github.com/zhiniuer/goutils/response"
+	"github.com/zhiniuer/goutils/validator_util"
 	"net/http"
 )
 
@@ -15,7 +16,7 @@ type PermissionController struct {
 func (c *PermissionController) List(ctx *gin.Context) {
 	form := new(schema.AdminRoleListForm)
 	if err := ctx.Bind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	data, count, err := new(service.AdminPermissionsService).List(form, response.Page(ctx.Request), response.PageSize(ctx.Request))
@@ -39,7 +40,7 @@ func (c *PermissionController) Options(ctx *gin.Context) {
 func (c *PermissionController) Store(ctx *gin.Context) {
 	form := new(schema.AdminPermissionStoreForm)
 	if err := ctx.ShouldBind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	fmt.Println(form)
@@ -54,7 +55,7 @@ func (c *PermissionController) Store(ctx *gin.Context) {
 func (c *PermissionController) Info(ctx *gin.Context) {
 	form := new(schema.AdminPermissionsInfoForm)
 	if err := ctx.Bind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	data, err := new(service.AdminPermissionsService).Info(form)
@@ -68,7 +69,7 @@ func (c *PermissionController) Info(ctx *gin.Context) {
 func (c *PermissionController) Detail(ctx *gin.Context) {
 	form := new(schema.AdminPermissionsInfoForm)
 	if err := ctx.Bind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	data, err := new(service.AdminPermissionsService).Detail(form)
@@ -82,7 +83,7 @@ func (c *PermissionController) Detail(ctx *gin.Context) {
 func (c *PermissionController) Delete(ctx *gin.Context) {
 	form := new(schema.AdminPermissionsDeleteForm)
 	if err := ctx.ShouldBind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	err := new(service.AdminPermissionsService).Delete(form)
