@@ -6,8 +6,8 @@ import (
 	"github.com/zhiniuer/goadmin/internal/app/errors"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/app/service"
-	"github.com/zhiniuer/goadmin/response"
-	"github.com/zhiniuer/goadmin/utils"
+	"github.com/zhiniuer/goutils/response"
+	"github.com/zhiniuer/goutils/validator_util"
 	"net/http"
 )
 
@@ -35,7 +35,7 @@ func (ctl AdminUserController) Options(ctx *gin.Context) {
 func (ctl AdminUserController) AuthInfo(ctx *gin.Context) {
 	form := new(schema.AdminUserAuthInfoForm)
 	if err := ctx.ShouldBind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	res, err := new(service.AdminUserService).AuthInfo(form)
@@ -49,7 +49,7 @@ func (ctl AdminUserController) AuthInfo(ctx *gin.Context) {
 func (ctl AdminUserController) AuthStore(ctx *gin.Context) {
 	form := new(schema.AdminUserAuthStoreForm)
 	if err := ctx.ShouldBind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	err := new(service.AdminUserService).AuthStore(form)

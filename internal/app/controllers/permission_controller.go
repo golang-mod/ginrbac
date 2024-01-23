@@ -5,8 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/app/service"
-	"github.com/zhiniuer/goadmin/response"
-	"github.com/zhiniuer/goadmin/utils"
+	"github.com/zhiniuer/goutils/response"
 	"net/http"
 )
 

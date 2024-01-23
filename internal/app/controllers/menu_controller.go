@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/app/service"
-	"github.com/zhiniuer/goadmin/response"
-	"github.com/zhiniuer/goadmin/utils"
+	"github.com/zhiniuer/goutils/response"
+	"github.com/zhiniuer/goutils/validator_util"
 	"net/http"
 )
 
@@ -24,7 +24,7 @@ func (c *MenuController) List(ctx *gin.Context) {
 func (c *MenuController) Store(ctx *gin.Context) {
 	form := new(schema.AdminMenuStoreForm)
 	if err := ctx.Bind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	err := new(service.AdminMenuService).Store(form)
@@ -52,7 +52,7 @@ func (c *MenuController) Delete(ctx *gin.Context) {
 func (c *MenuController) Info(ctx *gin.Context) {
 	form := new(schema.AdminMenuDetailForm)
 	if err := ctx.Bind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	data, err := new(service.AdminMenuService).Info(form)

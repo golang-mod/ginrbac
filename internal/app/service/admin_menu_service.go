@@ -5,8 +5,8 @@ import (
 	"github.com/zhiniuer/goadmin/internal/app/driver"
 	"github.com/zhiniuer/goadmin/internal/app/models"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
-	"github.com/zhiniuer/goadmin/str"
-	"github.com/zhiniuer/goadmin/tree"
+	"github.com/zhiniuer/goutils/str"
+	"github.com/zhiniuer/goutils/tree"
 	"gorm.io/gorm"
 )
 

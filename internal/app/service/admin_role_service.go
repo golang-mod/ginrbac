@@ -2,12 +2,12 @@ package service
 
 import (
 	"fmt"
-	"github.com/zhiniuer/goadmin/gormx"
 	"github.com/zhiniuer/goadmin/internal/app/driver"
 	"github.com/zhiniuer/goadmin/internal/app/errors"
 	"github.com/zhiniuer/goadmin/internal/app/models"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/rbac"
+	"github.com/zhiniuer/goutils/gormx"
 	"gorm.io/gorm"
 	"strconv"
 )

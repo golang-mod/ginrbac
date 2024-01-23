@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/response"
+	"github.com/zhiniuer/goutils/response"
 	"net/http"
 	"sync"
 )

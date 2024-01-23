@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
 	"github.com/zhiniuer/goadmin/internal/app/service"
-	"github.com/zhiniuer/goadmin/response"
-	"github.com/zhiniuer/goadmin/utils"
+	"github.com/zhiniuer/goutils/response"
+	"github.com/zhiniuer/goutils/validator_util"
 	"net/http"
 )
 
@@ -15,7 +15,7 @@ type RoleController struct {
 func (c *RoleController) List(ctx *gin.Context) {
 	form := new(schema.AdminRoleListForm)
 	if err := ctx.Bind(form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	pageSize := response.PageSize(ctx.Request)
@@ -41,7 +41,7 @@ func (c *RoleController) Options(ctx *gin.Context) {
 func (c *RoleController) Store(ctx *gin.Context) {
 	form := new(schema.AdminRoleStoreForm)
 	if err := ctx.ShouldBind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	err := new(service.AdminRoleService).Store(form)
@@ -55,7 +55,7 @@ func (c *RoleController) Store(ctx *gin.Context) {
 func (c *RoleController) Info(ctx *gin.Context) {
 	form := new(schema.AdminRoleInfoForm)
 	if err := ctx.Bind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	data, err := new(service.AdminRoleService).Info(form)
@@ -69,7 +69,7 @@ func (c *RoleController) Info(ctx *gin.Context) {
 func (c *RoleController) Detail(ctx *gin.Context) {
 	form := new(schema.AdminRoleInfoForm)
 	if err := ctx.Bind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	data, err := new(service.AdminRoleService).Detail(form)
@@ -83,7 +83,7 @@ func (c *RoleController) Detail(ctx *gin.Context) {
 func (c *RoleController) Delete(ctx *gin.Context) {
 	form := new(schema.AdminRoleDeleteForm)
 	if err := ctx.ShouldBind(&form); err != nil {
-		ctx.JSON(http.StatusOK, response.Fail(utils.ErrFirst(err).Error(), 10001))
+		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
 		return
 	}
 	err := new(service.AdminRoleService).Delete(form)

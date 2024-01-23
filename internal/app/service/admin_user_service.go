@@ -1,14 +1,14 @@
 package service
 
 import (
-	"github.com/zhiniuer/goadmin/gormx"
 	"github.com/zhiniuer/goadmin/internal/app"
 	"github.com/zhiniuer/goadmin/internal/app/dao"
 	"github.com/zhiniuer/goadmin/internal/app/driver"
 	"github.com/zhiniuer/goadmin/internal/app/errors"
 	"github.com/zhiniuer/goadmin/internal/app/models"
 	"github.com/zhiniuer/goadmin/internal/app/schema"
-	"github.com/zhiniuer/goadmin/tree"
+	"github.com/zhiniuer/goutils/gormx"
+	"github.com/zhiniuer/goutils/tree"
 	"gorm.io/gorm"
 	"strconv"
 )

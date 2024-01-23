@@ -1,7 +1,7 @@
 package schema
 
 import (
-	"github.com/zhiniuer/goadmin/tree"
+	"github.com/zhiniuer/goutils/tree"
 )
 
 type AdminMenuListResult struct {

@@ -1,7 +1,7 @@
 package schema
 
 import (
-	"github.com/zhiniuer/goadmin/gormx/datatypes"
+	"github.com/zhiniuer/goutils/gormx/datatypes"
 )
 
 // AdminRoleListForm 角色列表请求参数
