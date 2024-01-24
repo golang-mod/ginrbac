@@ -25,10 +25,10 @@ func (m *AdminUserService) List(page, pageSize int) (items []forms.AdminUserList
 		return db.Table(roleUsersTableName+" as ru").
 			Select("r.name as role_name", "ru.user_id", "ru.role_id").
 			Joins("left join " + roleTableName + " as r on r.id = ru.role_id")
-	}).Find(&items)
+	}).Order("id DESC").Find(&items)
 
-	db.Scopes(gormx.Paginate(page, pageSize)).
-		Order("id DESC").Find(&items)
+	//db.Scopes(gormx.Paginate(page, pageSize)).
+	//	Order("id DESC").Find(&items)
 	return items, count, nil
 }
 

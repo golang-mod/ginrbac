@@ -16,41 +16,33 @@ func NewAdmin(db *gorm.DB, rbacFile string) (a *Admin, err error) {
 	if err != nil {
 		return nil, err
 	}
-	if err != nil {
-		return
-	}
 	return &Admin{
-		Middleware: &middle{},
-		Router:     &router{},
+		Middleware: &_middleware{},
+		Router:     &_router{},
 	}, nil
 }
 
 type Admin struct {
-	Middleware *middle
-	Router     *router
+	Middleware *_middleware
+	Router     *_router
 }
-type router struct {
+type _router struct {
 }
 
 // AuthRouter 没有权限控制的路由
-func (*router) AuthRouter(group *gin.RouterGroup) {
+func (*_router) AuthRouter(group *gin.RouterGroup) {
 	routes.NewRouteAuth(group)
 }
 
 // RbacRouter RBAC权限控制的路由
-func (*router) RbacRouter(group *gin.RouterGroup) {
+func (*_router) RbacRouter(group *gin.RouterGroup) {
 	routes.NewRouteRbac(group)
 }
 
-type middle struct {
+type _middleware struct {
 }
 
 // Rbac 中间件
-func (*middle) Rbac() gin.HandlerFunc {
+func (*_middleware) Rbac() gin.HandlerFunc {
 	return middleware.NewRbac()
-}
-
-// Access 访问日志中间件
-func (*middle) Access() gin.HandlerFunc {
-	return middleware.NewAccess()
 }

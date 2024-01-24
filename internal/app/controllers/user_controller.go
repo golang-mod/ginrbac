@@ -17,11 +17,11 @@ import (
 	"time"
 )
 
-type AdminUserController struct {
+type UserController struct {
 }
 
 // Status 系统检测
-func (ctl AdminUserController) Status(ctx *gin.Context) {
+func (ctl UserController) Status(ctx *gin.Context) {
 	data := map[string]interface{}{
 		"go_version": runtime.Version(),
 		"timezone":   time.Local.String(),
@@ -44,7 +44,7 @@ func (ctl AdminUserController) Status(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response.Ok(data, "获取成功", 10000))
 }
 
-func (ctl AdminUserController) List(ctx *gin.Context) {
+func (ctl UserController) List(ctx *gin.Context) {
 	data, count, err := new(service.AdminUserService).List(response.Page(ctx.Request), response.PageSize(ctx.Request))
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(err.Error(), 10002))
@@ -53,7 +53,7 @@ func (ctl AdminUserController) List(ctx *gin.Context) {
 	pageData := response.Paginate(ctx.Request, count, data)
 	ctx.JSON(http.StatusOK, response.Ok(pageData, "成功", 10000))
 }
-func (ctl AdminUserController) Options(ctx *gin.Context) {
+func (ctl UserController) Options(ctx *gin.Context) {
 	data, err := new(service.AdminUserService).Options()
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(err.Error(), 10002))
@@ -62,7 +62,7 @@ func (ctl AdminUserController) Options(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response.Ok(data, "成功", 10000))
 }
 
-func (ctl AdminUserController) AuthInfo(ctx *gin.Context) {
+func (ctl UserController) AuthInfo(ctx *gin.Context) {
 	form := new(forms.AdminUserAuthInfoForm)
 	if err := ctx.ShouldBind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
@@ -76,7 +76,7 @@ func (ctl AdminUserController) AuthInfo(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response.Ok(res, "成功", 10000))
 }
 
-func (ctl AdminUserController) AuthStore(ctx *gin.Context) {
+func (ctl UserController) AuthStore(ctx *gin.Context) {
 	form := new(forms.AdminUserAuthStoreForm)
 	if err := ctx.ShouldBind(&form); err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(validator_util.ErrFirst(err).Error(), 10001))
@@ -90,7 +90,7 @@ func (ctl AdminUserController) AuthStore(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, response.Ok("", "分配成功", 10000))
 }
 
-func (ctl AdminUserController) Menu(ctx *gin.Context) {
+func (ctl UserController) Menu(ctx *gin.Context) {
 	kc := app.NewContext(ctx)
 	userId := kc.User.AdminId
 	data, err := new(service.AdminUserService).Menu(int(userId))
@@ -111,7 +111,7 @@ type UserPasswordForm struct {
 	Password      string `form:"password" json:"password" binding:"required"`
 }
 
-func (ctl AdminUserController) UserInfo(ctx *gin.Context) {
+func (ctl UserController) UserInfo(ctx *gin.Context) {
 	//var user models.AdminUsers
 
 	ac := app.NewContext(ctx)

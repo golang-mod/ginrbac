@@ -9,9 +9,6 @@ import (
 
 const (
 	AdminUserId = "admin.user_id"
-	AdminInput  = "admin.input"
-	AdminOutput = "admin.output"
-	AdminIp     = "admin.ip"
 )
 
 type Context struct {
@@ -22,10 +19,6 @@ type Context struct {
 	// 用户相关数据
 	User struct {
 		AdminId int64
-	}
-	// 系统相关数据
-	Client struct {
-		Ip string
 	}
 	// 请求分页相关数据
 	Query struct {

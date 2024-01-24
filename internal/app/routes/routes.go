@@ -6,11 +6,10 @@ import (
 )
 
 var (
-	adminRole         = new(controllers.RoleController)
-	adminUser         = new(controllers.AdminUserController)
-	adminMenu         = new(controllers.MenuController)
-	adminOperationLog = new(controllers.OperationLogController)
-	adminPermission   = new(controllers.PermissionController)
+	adminRole       = new(controllers.RoleController)
+	adminUser       = new(controllers.UserController)
+	adminMenu       = new(controllers.MenuController)
+	adminPermission = new(controllers.PermissionController)
 )
 
 // 登录 退出 token 生成验证不应在本包范围内
@@ -48,8 +47,6 @@ func NewRouteRbac(rbac *gin.RouterGroup) {
 	rbac.POST("auth/menu/delete", adminMenu.Delete)
 	rbac.GET("auth/menu/options", adminMenu.List)
 	rbac.GET("auth/menu/permission-options", adminMenu.PermissionOptions)
-
-	rbac.GET("auth/operation-log/list", adminOperationLog.List)
 
 	rbac.GET("auth/permissions/list", adminPermission.List)
 	rbac.GET("auth/permissions/options", adminPermission.Options)
