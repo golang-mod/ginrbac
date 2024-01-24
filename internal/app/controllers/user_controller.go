@@ -2,15 +2,15 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/internal/app"
-	"github.com/zhiniuer/goadmin/internal/app/errors"
-	"github.com/zhiniuer/goadmin/internal/app/forms"
-	"github.com/zhiniuer/goadmin/internal/app/service"
-	"github.com/zhiniuer/goutils/hardware"
-	"github.com/zhiniuer/goutils/ip"
-	"github.com/zhiniuer/goutils/response"
-	"github.com/zhiniuer/goutils/time_util"
-	"github.com/zhiniuer/goutils/validator_util"
+	"github.com/golang-mod/ginrbac/internal/app"
+	"github.com/golang-mod/ginrbac/internal/app/errors"
+	"github.com/golang-mod/ginrbac/internal/app/forms"
+	"github.com/golang-mod/ginrbac/internal/app/service"
+	"github.com/golang-mod/utils/hardware"
+	"github.com/golang-mod/utils/ip"
+	"github.com/golang-mod/utils/response"
+	"github.com/golang-mod/utils/time_util"
+	"github.com/golang-mod/utils/validator_util"
 	"math"
 	"net/http"
 	"runtime"
@@ -92,7 +92,7 @@ func (ctl UserController) AuthStore(ctx *gin.Context) {
 
 func (ctl UserController) Menu(ctx *gin.Context) {
 	kc := app.NewContext(ctx)
-	userId := kc.User.AdminId
+	userId := kc.User.Id
 	data, err := new(service.AdminUserService).Menu(int(userId))
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(err.Error(), 10002))
@@ -122,7 +122,7 @@ func (ctl UserController) UserInfo(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusOK, response.Fail(errors.E(err).MessageCode()))
 	}
-	menus, _ := adminUserService.Menu(int(ac.User.AdminId))
+	menus, _ := adminUserService.Menu(int(ac.User.Id))
 	ctx.JSON(http.StatusOK, response.Ok(gin.H{
 		"id":    user.Id,
 		"name":  user.Name,

@@ -1,10 +1,10 @@
-package goadmin
+package ginrbac
 
 import (
 	"log"
 	"testing"
 )
 
-func Test_Goadmin(t *testing.T) {
+func Test_rbac(t *testing.T) {
 	log.Println("123")
 }

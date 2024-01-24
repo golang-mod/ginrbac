@@ -2,13 +2,13 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goutils/response"
+	"github.com/golang-mod/utils/response"
 	"net/http"
 	"sync"
 )
 
 const (
-	AdminUserId = "admin.user_id"
+	AdminUserId = "admin.user.id"
 )
 
 type Context struct {
@@ -18,7 +18,7 @@ type Context struct {
 	mu sync.RWMutex
 	// 用户相关数据
 	User struct {
-		AdminId int64
+		Id int64
 	}
 	// 请求分页相关数据
 	Query struct {
@@ -40,7 +40,7 @@ func NewContext(ctx *gin.Context) *Context {
 
 	ac.Request = ctx.Request
 	// 用户相关数据
-	ac.User.AdminId = adminUserId
+	ac.User.Id = adminUserId
 	// 请求分页相关数据
 	ac.Query.Page = page
 	ac.Query.PageSize = pageSize

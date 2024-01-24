@@ -1,4 +1,4 @@
-module github.com/zhiniuer/goadmin
+module github.com/golang-mod/ginrbac
 
 go 1.20
 
@@ -6,9 +6,8 @@ require (
 	github.com/casbin/casbin/v2 v2.81.0
 	github.com/casbin/gorm-adapter/v3 v3.20.0
 	github.com/gin-gonic/gin v1.9.1
+	github.com/golang-mod/utils v0.1.6
 	github.com/pkg/errors v0.9.1
-	github.com/zhiniuer/goutils v0.1.4
-	golang.org/x/crypto v0.18.0
 	gorm.io/gorm v1.25.5
 )
 
@@ -57,6 +56,7 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
 	golang.org/x/arch v0.7.0 // indirect
+	golang.org/x/crypto v0.18.0 // indirect
 	golang.org/x/net v0.20.0 // indirect
 	golang.org/x/sync v0.6.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect

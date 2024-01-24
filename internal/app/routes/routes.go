@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/internal/app/controllers"
+	"github.com/golang-mod/ginrbac/internal/app/controllers"
 )
 
 var (

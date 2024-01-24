@@ -1,6 +1,6 @@
-package goadmin
+package ginrbac
 
-import "github.com/zhiniuer/goadmin/internal/app"
+import "github.com/golang-mod/ginrbac/internal/app"
 
 const (
 	AdminUserId = app.AdminUserId

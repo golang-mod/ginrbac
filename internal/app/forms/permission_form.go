@@ -1,7 +1,7 @@
 package forms
 
 import (
-	"github.com/zhiniuer/goutils/datatypes"
+	"github.com/golang-mod/utils/datatypes"
 )
 
 type AdminPermissionsDeleteForm struct {

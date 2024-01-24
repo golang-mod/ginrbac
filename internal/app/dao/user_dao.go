@@ -1,9 +1,9 @@
 package dao
 
 import (
+	"github.com/golang-mod/ginrbac/internal/app/models"
+	"github.com/golang-mod/ginrbac/internal/rbac"
 	"github.com/pkg/errors"
-	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goadmin/internal/rbac"
 	"gorm.io/gorm"
 	"strconv"
 )

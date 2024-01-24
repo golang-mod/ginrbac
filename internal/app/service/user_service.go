@@ -1,14 +1,14 @@
 package service
 
 import (
-	"github.com/zhiniuer/goadmin/internal/app"
-	"github.com/zhiniuer/goadmin/internal/app/dao"
-	"github.com/zhiniuer/goadmin/internal/app/driver"
-	"github.com/zhiniuer/goadmin/internal/app/errors"
-	"github.com/zhiniuer/goadmin/internal/app/forms"
-	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goutils/gormx"
-	"github.com/zhiniuer/goutils/tree"
+	"github.com/golang-mod/ginrbac/internal/app"
+	"github.com/golang-mod/ginrbac/internal/app/dao"
+	"github.com/golang-mod/ginrbac/internal/app/driver"
+	"github.com/golang-mod/ginrbac/internal/app/errors"
+	"github.com/golang-mod/ginrbac/internal/app/forms"
+	"github.com/golang-mod/ginrbac/internal/app/models"
+	"github.com/golang-mod/utils/gormx"
+	"github.com/golang-mod/utils/tree"
 	"gorm.io/gorm"
 	"strconv"
 )
@@ -120,7 +120,7 @@ type UserInfoResult struct {
 }
 
 func (m *AdminUserService) UserInfo(ctx *app.Context) (res UserInfoResult, err error) {
-	userId := ctx.User.AdminId
+	userId := ctx.User.Id
 	err = driver.GDB.Model(models.AdminUsers{}).Where("id = ?", userId).First(&res).Error
 	if err != nil {
 		err = errors.ErrRecordNotFound

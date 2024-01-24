@@ -1,7 +1,7 @@
 package driver
 
 import (
-	"github.com/zhiniuer/goadmin/internal/rbac"
+	"github.com/golang-mod/ginrbac/internal/rbac"
 )
 
 var Rbac *rbac.Synced

@@ -2,11 +2,11 @@ package service
 
 import (
 	"errors"
-	"github.com/zhiniuer/goadmin/internal/app/driver"
-	"github.com/zhiniuer/goadmin/internal/app/forms"
-	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goutils/str"
-	"github.com/zhiniuer/goutils/tree"
+	"github.com/golang-mod/ginrbac/internal/app/driver"
+	"github.com/golang-mod/ginrbac/internal/app/forms"
+	"github.com/golang-mod/ginrbac/internal/app/models"
+	"github.com/golang-mod/utils/str"
+	"github.com/golang-mod/utils/tree"
 	"gorm.io/gorm"
 )
 

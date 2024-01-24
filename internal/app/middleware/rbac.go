@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/internal/app"
-	"github.com/zhiniuer/goadmin/internal/app/driver"
-	"github.com/zhiniuer/goutils/response"
+	"github.com/golang-mod/ginrbac/internal/app"
+	"github.com/golang-mod/ginrbac/internal/app/driver"
+	"github.com/golang-mod/utils/response"
 	"log"
 	"net/http"
 	"strconv"

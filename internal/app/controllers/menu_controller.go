@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/internal/app/forms"
-	"github.com/zhiniuer/goadmin/internal/app/service"
-	"github.com/zhiniuer/goutils/response"
-	"github.com/zhiniuer/goutils/validator_util"
+	"github.com/golang-mod/ginrbac/internal/app/forms"
+	"github.com/golang-mod/ginrbac/internal/app/service"
+	"github.com/golang-mod/utils/response"
+	"github.com/golang-mod/utils/validator_util"
 	"net/http"
 )
 

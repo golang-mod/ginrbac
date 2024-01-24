@@ -1,7 +1,7 @@
 package forms
 
 import (
-	"github.com/zhiniuer/goutils/tree"
+	"github.com/golang-mod/utils/tree"
 )
 
 type AdminMenuListResult struct {

@@ -1,28 +1,28 @@
-package goadmin
+package ginrbac
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/zhiniuer/goadmin/internal/app/driver"
-	"github.com/zhiniuer/goadmin/internal/app/middleware"
-	"github.com/zhiniuer/goadmin/internal/app/routes"
+	"github.com/golang-mod/ginrbac/internal/app/driver"
+	"github.com/golang-mod/ginrbac/internal/app/middleware"
+	"github.com/golang-mod/ginrbac/internal/app/routes"
 	"gorm.io/gorm"
 )
 
-// NewAdmin
+// NewRbac
 // rbacFile rbac_model.conf
-func NewAdmin(db *gorm.DB, rbacFile string) (a *Admin, err error) {
+func NewRbac(db *gorm.DB, rbacFile string) (a *Rbac, err error) {
 	driver.GDB = db
 	err = driver.InitRbac(rbacFile)
 	if err != nil {
 		return nil, err
 	}
-	return &Admin{
+	return &Rbac{
 		Middleware: &_middleware{},
 		Router:     &_router{},
 	}, nil
 }
 
-type Admin struct {
+type Rbac struct {
 	Middleware *_middleware
 	Router     *_router
 }

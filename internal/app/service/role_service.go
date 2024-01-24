@@ -2,12 +2,12 @@ package service
 
 import (
 	"fmt"
-	"github.com/zhiniuer/goadmin/internal/app/driver"
-	"github.com/zhiniuer/goadmin/internal/app/errors"
-	"github.com/zhiniuer/goadmin/internal/app/forms"
-	"github.com/zhiniuer/goadmin/internal/app/models"
-	"github.com/zhiniuer/goadmin/internal/rbac"
-	"github.com/zhiniuer/goutils/gormx"
+	"github.com/golang-mod/ginrbac/internal/app/driver"
+	"github.com/golang-mod/ginrbac/internal/app/errors"
+	"github.com/golang-mod/ginrbac/internal/app/forms"
+	"github.com/golang-mod/ginrbac/internal/app/models"
+	"github.com/golang-mod/ginrbac/internal/rbac"
+	"github.com/golang-mod/utils/gormx"
 	"gorm.io/gorm"
 	"strconv"
 )
