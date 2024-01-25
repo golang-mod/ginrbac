@@ -23,11 +23,12 @@ func (m *AdminMenuService) Store(form *forms.AdminMenuStoreForm) (err error) {
 		"Title":     form.Title,
 		"Icon":      form.Icon,
 		"Uri":       form.Uri,
-		"Type":      form.Type,
+		"Type":      str.S(form.Type).DefaultInt(0),
 		"ViewPath":  form.ViewPath,
 		"Name":      form.Name,
-		"KeepAlive": form.KeepAlive,
-		"IsShow":    form.IsShow,
+		"KeepAlive": str.S(form.KeepAlive).DefaultInt(0),
+		"IsShow":    str.S(form.IsShow).DefaultInt(0),
+		"IsDefault": str.S(form.IsDefault).DefaultInt(0),
 	}
 	if form.Id != 0 {
 		err = db.Model(&models.AdminMenu{}).Where("id", form.Id).First(&oldItem).Error
@@ -42,7 +43,6 @@ func (m *AdminMenuService) Store(form *forms.AdminMenuStoreForm) (err error) {
 			return err
 		}
 	} else {
-		//result := db.Model(&oldItem).Create(form)
 		err = db.Model(&models.AdminMenu{}).Create(&models.AdminMenu{
 			ParentId:  str.S(form.ParentId).DefaultInt(0),
 			Order:     form.Order,
@@ -54,7 +54,7 @@ func (m *AdminMenuService) Store(form *forms.AdminMenuStoreForm) (err error) {
 			Name:      form.Name,
 			Uri:       form.Uri,
 			IsShow:    str.S(form.IsShow).DefaultInt(0),
-			IsDefault: 0,
+			IsDefault: str.S(form.IsDefault).DefaultInt(0),
 		}).Error
 		if err != nil {
 			return err
