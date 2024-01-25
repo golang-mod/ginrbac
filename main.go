@@ -5,6 +5,7 @@ import (
 	"github.com/golang-mod/ginrbac/internal/app/driver"
 	"github.com/golang-mod/ginrbac/internal/app/middleware"
 	"github.com/golang-mod/ginrbac/internal/app/routes"
+	"github.com/golang-mod/ginrbac/internal/app/service"
 	"gorm.io/gorm"
 )
 
@@ -25,6 +26,7 @@ func NewRbac(db *gorm.DB, rbacFile string) (a *Rbac, err error) {
 type Rbac struct {
 	Middleware *_middleware
 	Router     *_router
+	Permission *_permission
 }
 type _router struct {
 }
@@ -45,4 +47,12 @@ type _middleware struct {
 // Rbac 中间件
 func (*_middleware) Rbac() gin.HandlerFunc {
 	return middleware.NewRbac()
+}
+
+type _permission struct {
+}
+
+func (*_permission) Check(userId string, slug string) bool {
+	permissionsService := service.AdminPermissionsService{}
+	return permissionsService.Check(userId, slug)
 }

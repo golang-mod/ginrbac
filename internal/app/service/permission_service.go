@@ -190,3 +190,13 @@ func (m *AdminPermissionsService) Delete(form *forms.AdminPermissionsDeleteForm)
 	}
 	return err
 }
+
+func (m *AdminPermissionsService) Check(userId string, slug string) bool {
+	p := models.AdminPermissions{}
+	result := driver.GDB.Model(&models.AdminPermissions{}).Where("slug", slug).First(&p)
+	if result.Error != nil {
+		return false
+	}
+	permissionId := strconv.FormatInt(int64(p.Id), 10)
+	return driver.Rbac.CheckPermission(userId, permissionId)
+}

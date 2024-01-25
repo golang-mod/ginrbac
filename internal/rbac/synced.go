@@ -51,6 +51,19 @@ func (u *Synced) CheckPolicy(sub string, path string, method string) bool {
 	return res
 }
 
+// CheckPermission 检测权限
+func (u *Synced) CheckPermission(userId string, permission string) bool {
+	// 成功返回true, 已存在返回false
+	// 子角色无法直接判断，需先获取包括子角色的所有角色
+	roles, _ := u.enforcer.GetImplicitRolesForUser(u.UserPrefix + userId)
+	for _, v := range roles {
+		if v == u.PermissionPrefix+permission {
+			return true
+		}
+	}
+	return false
+}
+
 // LoadPolicy 加载策略规则
 func (u *Synced) LoadPolicy() error {
 	err := u.enforcer.LoadPolicy()
